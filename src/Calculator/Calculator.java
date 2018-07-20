@@ -8,15 +8,9 @@ import java.util.Scanner;
 
 public class Calculator implements CalculatorInterface {
 
-    // in case of this application there is no necessary to have any getter and setter because variables are used only inside this class
     private List<String> operationsList;
-    private int lastLineNumber;
+    private int lastLineNumber = -1;
     private double initialValue;
-
-    public Calculator() {
-        // it is not necessary here, all this constructor can be removed in case of declaration like this:  private int lastLineNumber-1;
-        this.lastLineNumber = -1;
-    }
 
     @Override
     public Double calculateResult(String fileName) throws FileNotFoundException {
@@ -36,8 +30,6 @@ public class Calculator implements CalculatorInterface {
 
     private void searchForLastLineAndInitialValue() {
 
-        //I need value of i as a lastLineNumber
-        //it is possible to use foreach, but then I need to use some counter in place of "i" in the line: lastLineNumber = i;
         for (int i = 0; i < operationsList.size(); i++) {
             String[] strings = operationsList.get(i).split(" ");
             if (strings.length != 2) {
@@ -82,7 +74,6 @@ public class Calculator implements CalculatorInterface {
      * @param inputString one line of command that contains operation and value with blank space between e.g. "add 2"
      * @return result of operation
      */
-    // calculateSingleCommand should be private but I did not make it private due to the fact that I want to show some tests.
     Double calculateSingleCommand(Double inputValue, String inputString) {
 
         Double result = null;
@@ -91,8 +82,6 @@ public class Calculator implements CalculatorInterface {
             return null;
         }
 
-        // section of "if" statements with proper commands.
-        // in case of wrong command e.g. mmultiply with double "m" inside the null value will be return because of the line: Double result = null;
         if (MATH_ADD.equals(strings[0].toUpperCase())) {
             Double newNumber = convertStringToValue(strings[1]);
             result = (inputValue != null && newNumber != null) ? inputValue += newNumber : null;
